@@ -1,13 +1,29 @@
+# 编译器与选项
 CXX = g++
 CXXFLAGS = -g -Wall
+LIBS = -lncurses
+BUILD_DIR = build
 
-# 注意：snake 依赖 ncurses，hello 不依赖。所以把 LIBS 单独放在规则里
-snake: snake.cpp
-	$(CXX) $(CXXFLAGS) snake.cpp -o snake -lncurses
+# 自动获取当前目录下所有的 .cpp 文件
+SRCS = $(wildcard *.cpp)
+# 将 .cpp 替换为 build/ 目录下的目标文件 (例如: build/snake, build/hello)
+TARGETS = $(patsubst %.cpp, $(BUILD_DIR)/%, $(SRCS))
 
-hello: hello.cpp
-	$(CXX) $(CXXFLAGS) hello.cpp -o hello
+# 默认目标：编译所有程序
+all: $(TARGETS)
 
-.PHONY: clean
+# 核心规则：build/xxx 依赖于 xxx.cpp
+$(BUILD_DIR)/%: %.cpp
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) $< -o $@ $(LIBS)
+
+# 一键运行贪吃蛇
+run: $(BUILD_DIR)/snake
+	./$(BUILD_DIR)/snake
+
+# 一键清理：删掉 build 文件夹（不会删你的代码！）
 clean:
-	rm -f snake hello
+	rm -rf $(BUILD_DIR)
+
+# 声明伪目标
+.PHONY: all run clean
