@@ -11,7 +11,7 @@ const int BOARD_H = 20;   // 高度（行）
 const int INIT_LEN = 4;   // 初始蛇长
 const int TICK_MS = 120;  // 移动间隔（毫秒），越小越快
 
-// 方向
+// 方向          
 enum Dir { UP, DOWN, LEFT, RIGHT };
 
 // 坐标点
