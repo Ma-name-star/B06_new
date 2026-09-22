@@ -1,0 +1,4 @@
+{
+    "remote.autoForwardPortsFallback": 0,
+    "C_Cpp.default.compilerPath": "/usr/bin/g++"
+}
