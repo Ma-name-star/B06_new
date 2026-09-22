@@ -1,4 +1,4 @@
-#include <ncurses.h>
+#include <ncurses.h>//试验ssh
 #include <vector>
 #include <cstdlib>
 #include <ctime>
